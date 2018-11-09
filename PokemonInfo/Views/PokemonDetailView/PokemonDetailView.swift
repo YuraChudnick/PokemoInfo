@@ -9,6 +9,9 @@
 import Foundation
 
 protocol PokemonDetailView: class {
+    
     func setTitle(text: String?)
+    
     func setPokemonImage(image: URL?)
+    
 }

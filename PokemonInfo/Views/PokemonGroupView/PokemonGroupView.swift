@@ -9,8 +9,13 @@
 import UIKit
 
 protocol PokemonGroupView: class {
+    
     func reloadData()
+    
     func setTabBarTitle(title: String)
+    
     func showDetailView(detailView: UIViewController)
+    
     func stopActivityIndicator()
+    
 }

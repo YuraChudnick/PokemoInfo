@@ -146,13 +146,13 @@
 		DEAF1E862191F6A500786752 /* PokemonInfo */ = {
 			isa = PBXGroup;
 			children = (
-				ECF077D521956B4600C02FE9 /* Helpers */,
-				DEAF1EA7219204CC00786752 /* Resources */,
 				DEAF1EA6219204AD00786752 /* Application */,
-				DEAF1EA52192049E00786752 /* Presenters */,
+				ECF077D521956B4600C02FE9 /* Helpers */,
 				DEAF1EA42192049800786752 /* Models */,
-				DEAF1EA32192049100786752 /* Views */,
 				DEAF1E992191F6B300786752 /* NetworkLayer */,
+				DEAF1EA52192049E00786752 /* Presenters */,
+				DEAF1EA7219204CC00786752 /* Resources */,
+				DEAF1EA32192049100786752 /* Views */,
 			);
 			path = PokemonInfo;
 			sourceTree = "<group>";
@@ -213,8 +213,8 @@
 			isa = PBXGroup;
 			children = (
 				DEAF1E872191F6A500786752 /* AppDelegate.swift */,
-				DEAF1E932191F6A900786752 /* Info.plist */,
 				DEAF1ECB2192229D00786752 /* Constants.swift */,
+				DEAF1E932191F6A900786752 /* Info.plist */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -279,15 +279,15 @@
 		DEAF1EDF2193801D00786752 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				DEAF1EE82194B67E00786752 /* Ability.swift */,
+				DEAF1EEA2194B74100786752 /* AbilityDetail.swift */,
 				DEAF1ECF219353CE00786752 /* EggGroup.swift */,
 				DEAF1ED9219366D600786752 /* FlavorText.swift */,
 				DEAF1ED7219364BE00786752 /* Name.swift */,
 				DEAF1ED1219354AE00786752 /* Pokemon.swift */,
+				DEAF1EE22194A66A00786752 /* PokemonAbilities.swift */,
 				DEAF1ECD2192267700786752 /* PokemonResponse.swift */,
 				DEAF1ED52193641100786752 /* PokemonSpecies.swift */,
-				DEAF1EE22194A66A00786752 /* PokemonAbilities.swift */,
-				DEAF1EE82194B67E00786752 /* Ability.swift */,
-				DEAF1EEA2194B74100786752 /* AbilityDetail.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";

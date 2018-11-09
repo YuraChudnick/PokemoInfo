@@ -10,7 +10,7 @@ import UIKit
 
 struct Utils {
     
-    static func getSaveAreaLeftRightPadding() -> CGFloat {
+    static func getLeftRightPadding() -> CGFloat {
         if #available(iOS 11.0, *) {
             let window = UIApplication.shared.keyWindow
             let leftPadding = window?.safeAreaInsets.left

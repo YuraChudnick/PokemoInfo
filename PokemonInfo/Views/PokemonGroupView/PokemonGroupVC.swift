@@ -122,7 +122,7 @@ class PokemonGroupVC: UIViewController, PokemonGroupView {
 extension PokemonGroupVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - numberOfCellsPerRow * minimumLineSpacingForSection - insetForSection * 2 - Utils.getSaveAreaLeftRightPadding()) / numberOfCellsPerRow
+        let width = (view.frame.width - numberOfCellsPerRow * minimumLineSpacingForSection - insetForSection * 2 - Utils.getLeftRightPadding()) / numberOfCellsPerRow
         return CGSize(width: width, height: width)
     }
     

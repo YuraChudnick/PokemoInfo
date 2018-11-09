@@ -9,6 +9,8 @@
 import Foundation
 
 protocol DetailModel {
+    
     func saveAbilityRate(rate: Double, for key: String)
+    
     func getAbilityRate(with key: String) -> Double?
 }

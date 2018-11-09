@@ -36,7 +36,6 @@ class PokemonDetailVC: UIViewController, PokemonDetailView {
     fileprivate func setupTableView() {
         let detailPresenter = presenter as! PokemonDetailPresenter
         
-        tableView.delegate = self
         tableView.dataSource = detailPresenter
         tableView.separatorInset = .zero
         tableView.register(UINib(nibName: detailPresenter.cellId, bundle: nil), forCellReuseIdentifier: detailPresenter.cellId)
@@ -51,10 +50,4 @@ class PokemonDetailVC: UIViewController, PokemonDetailView {
         pokemonImageView.kf.setImage(with: image)
     }
 
-}
-
-extension PokemonDetailVC: UITableViewDelegate {
-    
-    
-    
 }

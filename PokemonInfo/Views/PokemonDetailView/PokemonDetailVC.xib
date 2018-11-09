@@ -124,7 +124,7 @@
                     <include reference="qUr-4Y-Geb"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="138.0809595202399" y="109.59999999999999"/>
+            <point key="canvasLocation" x="75" y="97"/>
         </view>
     </objects>
 </document>
