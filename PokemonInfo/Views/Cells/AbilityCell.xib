@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="109" id="KGk-i7-Jjw" customClass="AbilityCell" customModule="PokemonInfo" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="109"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="108.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ability" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSn-Op-wQG">
+                        <rect key="frame" x="16" y="11" width="117" height="26"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="26" id="j0p-ju-YjA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VDN-1j-PAe">
+                        <rect key="frame" x="16" y="45" width="288" height="53"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fHr-4d-Pu3" customClass="CosmosView" customModule="Cosmos">
+                        <rect key="frame" x="151.5" y="14" width="152.5" height="20"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="152.5" id="Rba-aj-id5"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="string" keyPath="text" value="Rate"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="rating">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="totalStars">
+                                <integer key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="emptyBorderColor">
+                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="filledColor">
+                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="filledBorderColor">
+                                <color key="value" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="fillMode">
+                                <integer key="value" value="0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="textSize">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="VDN-1j-PAe" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="5V6-KL-rP7"/>
+                    <constraint firstItem="fHr-4d-Pu3" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="8eE-HL-mi6"/>
+                    <constraint firstItem="hSn-Op-wQG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="CtS-Td-0xU"/>
+                    <constraint firstItem="hSn-Op-wQG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Gm5-Jf-HEg"/>
+                    <constraint firstItem="fHr-4d-Pu3" firstAttribute="centerY" secondItem="hSn-Op-wQG" secondAttribute="centerY" id="ON7-V1-RD4"/>
+                    <constraint firstItem="VDN-1j-PAe" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="PDT-IA-P3I"/>
+                    <constraint firstItem="fHr-4d-Pu3" firstAttribute="leading" secondItem="hSn-Op-wQG" secondAttribute="trailing" constant="18.5" id="b9w-iY-avK"/>
+                    <constraint firstItem="VDN-1j-PAe" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="qv8-GN-9GZ"/>
+                    <constraint firstItem="VDN-1j-PAe" firstAttribute="top" secondItem="hSn-Op-wQG" secondAttribute="bottom" constant="8" id="z1i-RE-z2f"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="descriptionLabel" destination="VDN-1j-PAe" id="hcW-Gg-ZnQ"/>
+                <outlet property="nameLabel" destination="hSn-Op-wQG" id="kmD-r8-YfN"/>
+                <outlet property="rateView" destination="fHr-4d-Pu3" id="9Ht-79-ch1"/>
+            </connections>
+            <point key="canvasLocation" x="52.799999999999997" y="152.47376311844079"/>
+        </tableViewCell>
+    </objects>
+</document>
