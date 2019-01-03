@@ -6,17 +6,12 @@
 //  Copyright © 2018 TFM. All rights reserved.
 //
 
-import UIKit
-import Kingfisher
-
-class PokemonGroupPresenter: NSObject, PokemonGroupViewPresenter {
+class PokemonGroupPresenter: PokemonGroupPresenterProtocol {
     
-    unowned let view: PokemonGroupView
-    let groupDataModel: GroupModel
+    unowned let view: PokemonGroupViewProtocol
+    let groupDataModel: PokemonGroupModelProtocol
     
-    let cellId = "PokemonCell"
-    
-    required init(view: PokemonGroupView, groupDataModel: GroupModel) {
+    required init(view: PokemonGroupViewProtocol, groupDataModel: PokemonGroupModelProtocol) {
         self.groupDataModel = groupDataModel
         self.view = view
     }
@@ -26,45 +21,19 @@ class PokemonGroupPresenter: NSObject, PokemonGroupViewPresenter {
             self.view.stopActivityIndicator()
             if success {
                 self.view.setTabBarTitle(title: self.groupDataModel.getGroup()?.name ?? "Group\(self.groupDataModel.group)")
-                self.view.reloadData()
+                self.view.setPokemons(list: self.groupDataModel.getGroup()?.pokemonSpecies ?? [])
             }
         }
     }
     
     func showDetailInfo(at index: Int) {
         guard let pokemon = groupDataModel.getGroupItem(at: index) else { return }
-        view.showDetailView(detailView: PokemonDetailVC.createModule(pokemon: pokemon))
+        view.showDetailView(detailView: PokemonDetailModuleBuilder().create(with: pokemon))
     }
     
     func search(_ text: String) {
         groupDataModel.search(text)
-        view.reloadData()
-    }
-    
-}
-
-extension PokemonGroupPresenter: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PokemonCell
-        let pokemon = groupDataModel.getGroupItem(at: indexPath.row)
-        cell.nameLabel.text = pokemon?.name
-        cell.imageView.image = nil
-        cell.descriptionLabel.text = "Loading..."
-        pokemon?.loadAbilities { (success) in
-            if success {
-                cell.imageView.kf.indicatorType = .activity
-                cell.imageView.kf.setImage(with: pokemon?.abilities?.sprites?.getUrlForDefaultImage())
-                cell.descriptionLabel.text = pokemon?.abilities?.getAbilitiesDescription()
-            } else {
-                cell.descriptionLabel.text = "No Data"
-            }
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return groupDataModel.getGroupItemsCount()
+        view.setPokemons(list: groupDataModel.getPokemons())
     }
     
 }

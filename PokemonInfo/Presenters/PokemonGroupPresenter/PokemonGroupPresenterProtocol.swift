@@ -6,11 +6,9 @@
 //  Copyright © 2018 TFM. All rights reserved.
 //
 
-import UIKit
-
-protocol PokemonGroupViewPresenter: class {
+protocol PokemonGroupPresenterProtocol: class {
     
-    init(view: PokemonGroupView, groupDataModel: GroupModel)
+    init(view: PokemonGroupViewProtocol, groupDataModel: PokemonGroupModelProtocol)
     
     func loadData()
     

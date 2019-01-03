@@ -16,7 +16,7 @@ class TabBarController: UITabBarController {
         var tabBarList: [UIViewController] = []
         
         for i in 1...4 {
-            let group = PokemonGroupVC.createModule(group: i)
+            let group = PokemonGroupModuleBuilder().create(with: i)
             group.tabBarItem = UITabBarItem(title: "Group\(i)", image: UIImage(named: "ic_egg"), tag: i)
             tabBarList.append(UINavigationController(rootViewController: group))
         }

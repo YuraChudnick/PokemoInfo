@@ -9,22 +9,23 @@
 import UIKit
 import Kingfisher
 
-class PokemonDetailVC: UIViewController, PokemonDetailView {
+class PokemonDetailVC: UIViewController, PokemonDetailViewProtocol {
     
-    var presenter: PokemonDetailViewPresenter!
+    //MARK: - Properties
     
-    class func createModule(pokemon: Pokemon) -> PokemonDetailVC {
-        let model = PokemonDetailModel()
-        model.pokemonInfo = pokemon
-        let view = PokemonDetailVC(nibName: "PokemonDetailVC", bundle: nil)
-        let presenter = PokemonDetailPresenter(view: view, detailModel: model)
-        view.presenter = presenter
-        view.hidesBottomBarWhenPushed = true
-        return view
+    var presenter: PokemonDetailPresenterPresenter!
+    var abilities: [Ability] = [] {
+        didSet {
+            tableView.reloadData()
+        }
     }
+    
+    let cellId = "AbilityCell"
     
     @IBOutlet weak var pokemonImageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
+    
+    //MARK: - View states
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,14 +34,16 @@ class PokemonDetailVC: UIViewController, PokemonDetailView {
         presenter.showDetailInfo()
     }
     
+    //MARK: - Setup views
+    
     fileprivate func setupTableView() {
-        let detailPresenter = presenter as! PokemonDetailPresenter
-        
-        tableView.dataSource = detailPresenter
+        tableView.dataSource = self
         tableView.separatorInset = .zero
-        tableView.register(UINib(nibName: detailPresenter.cellId, bundle: nil), forCellReuseIdentifier: detailPresenter.cellId)
+        tableView.register(UINib(nibName: cellId, bundle: nil), forCellReuseIdentifier: cellId)
         tableView.tableFooterView = UIView(frame: .zero)
     }
+    
+    //MARK: - Actions
     
     func setTitle(text: String?) {
         title = text
@@ -49,5 +52,42 @@ class PokemonDetailVC: UIViewController, PokemonDetailView {
     func setPokemonImage(image: URL?) {
         pokemonImageView.kf.setImage(with: image)
     }
+    
+    func setAbilities(abilities: [Ability]) {
+        self.abilities = abilities
+    }
 
+}
+
+//MARK: - Table view
+
+extension PokemonDetailVC: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return abilities.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! AbilityCell
+        let ability = abilities[indexPath.row]
+        cell.nameLabel.text = ability.ability?.name
+        cell.descriptionLabel.text = "Loading..."
+        ability.loadAbilitiesDetail(handler: { (success) in
+            if success {
+                cell.descriptionLabel.text = ability.abilityDetail?.getEffectDescription()
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+            } else {
+                cell.descriptionLabel.text = "No Data"
+            }
+        })
+        let abilityName = ability.ability?.name ?? "no_ability"
+        presenter.showAbilityRate(for: abilityName, result: { (rate) in
+            cell.rateView.rating = rate
+        })
+        cell.rateView.didFinishTouchingCosmos = { [weak self] (rate) in
+            self?.presenter.ratingChanged(rate: rate, for: abilityName)
+        }
+        return cell
+    }
+    
 }

@@ -6,8 +6,6 @@
 //  Copyright © 2018 TFM. All rights reserved.
 //
 
-import Foundation
-
 protocol Operation  {
     
     var request: Request { get }
