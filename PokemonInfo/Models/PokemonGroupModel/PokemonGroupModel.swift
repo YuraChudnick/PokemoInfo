@@ -6,7 +6,7 @@
 //  Copyright © 2018 TFM. All rights reserved.
 //
 
-class PokemonGroupModel: GroupModel {
+class PokemonGroupModel: PokemonGroupModelProtocol {
 
     private var limit = 10
     private var offset = 0
@@ -21,6 +21,10 @@ class PokemonGroupModel: GroupModel {
     
     func getGroup() -> EggGroup? {
         return eggGroup
+    }
+    
+    func getPokemons() -> [Pokemon] {
+        return isFiltering ? filteredGroupItems : (eggGroup?.pokemonSpecies ?? [])
     }
     
     func getGroupItemsCount() -> Int {

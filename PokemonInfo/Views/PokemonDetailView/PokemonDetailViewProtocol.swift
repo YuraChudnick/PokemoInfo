@@ -8,10 +8,12 @@
 
 import Foundation
 
-protocol PokemonDetailView: class {
+protocol PokemonDetailViewProtocol: class {
     
     func setTitle(text: String?)
     
     func setPokemonImage(image: URL?)
+    
+    func setAbilities(abilities: [Ability])
     
 }

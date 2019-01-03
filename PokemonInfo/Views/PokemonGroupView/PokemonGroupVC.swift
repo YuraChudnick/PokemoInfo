@@ -8,17 +8,18 @@
 
 import UIKit
 
-class PokemonGroupVC: UIViewController, PokemonGroupView {
+class PokemonGroupVC: UIViewController, PokemonGroupViewProtocol {
 
-    var presenter: PokemonGroupViewPresenter!
+    //MARK: - Properties
     
-    class func createModule(group: Int) -> PokemonGroupVC {
-        let model = PokemonGroupModel(group: group)
-        let view = PokemonGroupVC(nibName: "PokemonGroupVC", bundle: nil)
-        let presenter = PokemonGroupPresenter(view: view, groupDataModel: model)
-        view.presenter = presenter
-        return view
+    var presenter: PokemonGroupPresenterProtocol!
+    var pokemons: [Pokemon] = [] {
+        didSet {
+            collectionView.reloadData()
+        }
     }
+    
+    let cellId = "PokemonCell"
     
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -38,6 +39,8 @@ class PokemonGroupVC: UIViewController, PokemonGroupView {
     let contentOffset = "contentOffset"
     var searchBarYPosition: CGFloat = 0
     var isSearchBarEditing = false
+    
+    //MARK: - View states
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,11 +64,12 @@ class PokemonGroupVC: UIViewController, PokemonGroupView {
         tabBarController?.tabBar.isTranslucent = false
     }
     
+    //MARK: - Setup views
+    
     fileprivate func setupViews() {
-        let groupPresenter = presenter as! PokemonGroupPresenter
         collectionView.delegate = self
-        collectionView.dataSource = groupPresenter
-        collectionView.register(UINib(nibName: groupPresenter.cellId, bundle: nil), forCellWithReuseIdentifier: groupPresenter.cellId)
+        collectionView.dataSource = self
+        collectionView.register(UINib(nibName: cellId, bundle: nil), forCellWithReuseIdentifier: cellId)
         
         searchBarTopConstraint.constant = 0
         searchBar.delegate = self
@@ -81,10 +85,6 @@ class PokemonGroupVC: UIViewController, PokemonGroupView {
         segmentControl.addTarget(self, action: #selector(changeNumberOfCellsPerRow(_:)), for: .valueChanged)
     }
     
-    @objc fileprivate func changeNumberOfCellsPerRow(_ sender: UISegmentedControl) {
-        numberOfCellsPerRow = CGFloat(sender.selectedSegmentIndex + 1)
-    }
-    
     fileprivate func addCollectionViewObserver() {
         collectionView.addObserver(self, forKeyPath: contentOffset, options: [.new, .old], context: nil)
     }
@@ -97,8 +97,10 @@ class PokemonGroupVC: UIViewController, PokemonGroupView {
         }
     }
     
-    func reloadData() {
-        collectionView.reloadData()
+    //MARK: - Actions
+    
+    @objc fileprivate func changeNumberOfCellsPerRow(_ sender: UISegmentedControl) {
+        numberOfCellsPerRow = CGFloat(sender.selectedSegmentIndex + 1)
     }
     
     func setTabBarTitle(title: String) {
@@ -113,11 +115,17 @@ class PokemonGroupVC: UIViewController, PokemonGroupView {
         activityIndicator.stopAnimating()
     }
     
+    func setPokemons(list: [Pokemon]) {
+        pokemons = list
+    }
+    
     deinit {
         collectionView.removeObserver(self, forKeyPath: contentOffset)
     }
     
 }
+
+//MARK: - Collection view
 
 extension PokemonGroupVC: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
@@ -147,6 +155,34 @@ extension PokemonGroupVC: UICollectionViewDelegate, UICollectionViewDelegateFlow
         presenter.showDetailInfo(at: indexPath.row)
     }
 }
+
+extension PokemonGroupVC: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PokemonCell
+        let pokemon = pokemons[indexPath.row]
+        cell.nameLabel.text = pokemon.name
+        cell.imageView.image = nil
+        cell.descriptionLabel.text = "Loading..."
+        pokemon.loadAbilities { (success) in
+            if success {
+                cell.imageView.kf.indicatorType = .activity
+                cell.imageView.kf.setImage(with: pokemon.abilities?.sprites?.getUrlForDefaultImage())
+                cell.descriptionLabel.text = pokemon.abilities?.getAbilitiesDescription()
+            } else {
+                cell.descriptionLabel.text = "No Data"
+            }
+        }
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return pokemons.count
+    }
+    
+}
+
+//MARK: - Search bar
 
 extension PokemonGroupVC: UISearchBarDelegate {
     

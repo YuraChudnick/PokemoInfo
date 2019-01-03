@@ -16,7 +16,10 @@ enum PokemonRequest: Request {
     case pokemon(id: String)
     
     var baseUrl: String {
-        return Constants.Urls.pokemonApi
+        guard let dict = Bundle.main.infoDictionary, let url = dict["SERVER_URL"] as? String else {
+            return ""
+        }
+        return url
     }
     
     var path: String {

@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol PokemonGroupView: class {
-    
-    func reloadData()
+protocol PokemonGroupViewProtocol: class {
     
     func setTabBarTitle(title: String)
     
     func showDetailView(detailView: UIViewController)
     
     func stopActivityIndicator()
+    
+    func setPokemons(list: [Pokemon])
     
 }

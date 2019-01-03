@@ -6,15 +6,15 @@
 //  Copyright © 2018 TFM. All rights reserved.
 //
 
-import Foundation
-
-protocol GroupModel {
+protocol PokemonGroupModelProtocol {
     
     var group: Int { get }
     
     init(group: Int)
     
     func getGroup() -> EggGroup?
+    
+    func getPokemons() -> [Pokemon]
     
     func getGroupItemsCount() -> Int
     
