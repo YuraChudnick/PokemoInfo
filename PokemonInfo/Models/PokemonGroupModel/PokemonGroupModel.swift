@@ -6,8 +6,6 @@
 //  Copyright © 2018 TFM. All rights reserved.
 //
 
-import UIKit
-
 class PokemonGroupModel: GroupModel {
 
     private var limit = 10
